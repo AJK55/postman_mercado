@@ -11,6 +11,8 @@ on_failure: always # default: always
 
 install:
   - npm install newman
+  - npm install lodash
+  - npm install moment
 
 before_script:
   - node --version
