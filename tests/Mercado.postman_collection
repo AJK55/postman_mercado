@@ -1,0 +1,387 @@
+{
+	"info": {
+		"_postman_id": "bd9e59b0-7067-4002-bf16-d130d019ed3c",
+		"name": "Mercado",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "BTC",
+			"item": [
+				{
+					"name": " trades",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "834eecc9-682f-4e91-b117-e7fdcb5a81d3",
+								"exec": [
+									"var _ = require('lodash');",
+									"",
+									"pass = true;",
+									"fail = false;",
+									"",
+									"",
+									"var data = JSON.parse(responseBody);",
+									"var ob = Object.keys(data[_.random(data.length)])",
+									"//console.log(ob)",
+									"",
+									"if (data.length === 1000) {",
+									"    tests[\"Number of results returned = \" + data.length] = pass",
+									"}",
+									"else",
+									"    tests[\"Number of results returned = \" + data.length] = fail;",
+									"",
+									"if (ob.length=== 5) {",
+									"    tests[\"Number of Objects returned = \" + ob.length] = pass",
+									"}",
+									"else",
+									"    tests[\"Number of Objects returned = \" + ob.length] = fail;",
+									"",
+									"if (ob[0] === \"date\") {",
+									"    tests[\"Date = \" + ob[0]] = pass",
+									"}",
+									"else ",
+									"    tests[\"Date = \" + ob[0]] = fail;",
+									"",
+									"if (ob[1] === \"price\") {",
+									"    tests[\"Price = \" + ob[1]] = pass",
+									"}",
+									"else ",
+									"    tests[\"Price = \" + ob[1]] = fail;  ",
+									"",
+									"if (ob[2] === \"amount\") {",
+									"    tests[\"Amount = \" + ob[2]] = pass",
+									"}",
+									"else ",
+									"    tests[\"Amount = \" + ob[2]] = fail;   ",
+									"",
+									"if (ob[3] === \"tid\") {",
+									"    tests[\"Tid = \" + ob[3]] = pass",
+									"}",
+									"else ",
+									"    tests[\"Tid = \" + ob[3]] = fail;   ",
+									"    ",
+									"if (ob[4] === \"type\") {",
+									"    tests[\"Type = \" + ob[4]] = pass",
+									"}",
+									"else ",
+									"    tests[\"Type = \" + ob[4]] = fail;   ",
+									"    "
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://mercadobitcoin.net/api/btc/trades/",
+							"protocol": "https",
+							"host": [
+								"mercadobitcoin",
+								"net"
+							],
+							"path": [
+								"api",
+								"btc",
+								"trades",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ticker",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "66356a09-9e4e-4883-995b-b5c335804e1b",
+								"exec": [
+									"pass = true;",
+									"fail = false;",
+									"",
+									"var data = JSON.parse(responseBody);",
+									"var ticker = Object.keys(data.ticker)",
+									"//console.log(ticker)",
+									"",
+									"if (ticker.length === 7) {",
+									"    tests[\"Number of Ticker keys = \" + ticker.length] = pass",
+									"}",
+									"else",
+									"    tests[\"Number of Ticker keys = \" + ticker.length] = fail;",
+									"",
+									"if (ticker[0] === \"buy\") {",
+									"    tests[\"Buy = \" + ticker[0]] = pass",
+									"}",
+									"else",
+									"    tests[\"Buy = \" + ticker[0]] = fail; ",
+									"",
+									"if (ticker[1] === \"sell\") {",
+									"    tests[\"Sell = \" + ticker[1]] = pass",
+									"}",
+									"else",
+									"    tests[\"Sell = \" + ticker[1]] = fail; ",
+									"",
+									"if (ticker[2] === \"high\") {",
+									"    tests[\"High = \" + ticker[2]] = pass",
+									"}",
+									"else",
+									"    tests[\"High = \" + ticker[2]] = fail; ",
+									"",
+									"if (ticker[3] === \"low\") {",
+									"    tests[\"Low = \" + ticker[3]] = pass",
+									"}",
+									"else",
+									"    tests[\"Low = \" + ticker[3]] = fail; ",
+									"",
+									"if (ticker[4] === \"vol\") {",
+									"    tests[\"Vol = \" + ticker[4]] = pass",
+									"}",
+									"else",
+									"    tests[\"Vol = \" + ticker[4]] = fail;     ",
+									"",
+									"if (ticker[5] === \"last\") {",
+									"    tests[\"Last = \" + ticker[5]] = pass",
+									"}",
+									"else",
+									"    tests[\"Last = \" + ticker[5]] = fail; ",
+									"",
+									"if (ticker[6] === \"date\") {",
+									"    tests[\"Date = \" + ticker[6]] = pass",
+									"}",
+									"else",
+									"    tests[\"Date = \" + ticker[6]] = fail; "
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://mercadobitcoin.net/api/btc/ticker/",
+							"protocol": "https",
+							"host": [
+								"mercadobitcoin",
+								"net"
+							],
+							"path": [
+								"api",
+								"btc",
+								"ticker",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Day-Summary",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "30c2438d-b315-4fb7-b804-93449a622773",
+								"exec": [
+									"var moment = require('moment');",
+									"var yesterday = moment().subtract(1, 'days').format('YYYY/MM/DD')",
+									"",
+									"pm.environment.set(\"yesterday\", yesterday);  //cannot run for current date"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "7cdf0451-7d56-43a6-bdcb-66c286ae6e20",
+								"exec": [
+									"pass = true;",
+									"fail = false;",
+									"",
+									"var moment = require('moment');",
+									"var yesterday = moment().subtract(1, 'days').format('YYYY-MM-DD') //cannot run for current date",
+									"//console.log(environment.yesterday) //environment variable for url",
+									"//console.log(yesterday) //used for test validation",
+									"var data = JSON.parse(responseBody);",
+									"var ob = Object.keys(data)",
+									"//console.log(ob)",
+									"",
+									"if (ob.length === 9) {",
+									"    tests[\"Number of Object Keys Returned = \" + ob.length] = pass",
+									"}",
+									"else",
+									"    tests[\"Number of Object Keys Returned = \" + ob.length] = fail;",
+									"",
+									"if (data.date === yesterday) {",
+									"    tests[\"Date returned = \" + data.date] = pass",
+									"}",
+									"else",
+									"    tests[\"Date returned = \" + data.date] = fail;",
+									"",
+									"if (ob[0] === \"date\") {",
+									"    tests[\"Date = \" + ob[0]] = pass",
+									"}",
+									"else",
+									"    tests[\"Date = \" + ob[0]] = fail;",
+									"    ",
+									"if (ob[1] === \"opening\") {",
+									"    tests[\"Opening = \" + ob[1]] = pass",
+									"}",
+									"else",
+									"    tests[\"Opening = \" + ob[1]] = fail;",
+									"",
+									"if (ob[2] === \"closing\") {",
+									"    tests[\"Closing = \" + ob[2]] = pass",
+									"}",
+									"else",
+									"    tests[\"Closing = \" + ob[2]] = fail;",
+									"",
+									"if (ob[3] === \"lowest\") {",
+									"    tests[\"Lowest = \" + ob[3]] = pass",
+									"}",
+									"else",
+									"    tests[\"Lowest = \" + ob[3]] = fail;",
+									"",
+									"if (ob[4] === \"highest\") {",
+									"    tests[\"Highest = \" + ob[4]] = pass",
+									"}",
+									"else",
+									"    tests[\"Highest = \" + ob[4]] = fail;",
+									"",
+									"if (ob[5] === \"volume\") {",
+									"    tests[\"Volume = \" + ob[5]] = pass",
+									"}",
+									"else",
+									"    tests[\"Volume = \" + ob[5]] = fail;",
+									"",
+									"if (ob[6] === \"quantity\") {",
+									"    tests[\"Quantity = \" + ob[6]] = pass",
+									"}",
+									"else",
+									"    tests[\"Quantity = \" + ob[6]] = fail;",
+									"",
+									"if (ob[7] === \"amount\") {",
+									"    tests[\"Amount = \" + ob[7]] = pass",
+									"}",
+									"else",
+									"    tests[\"Amount = \" + ob[7]] = fail;",
+									"",
+									"if (ob[8] === \"avg_price\") {",
+									"    tests[\"Avg_Price = \" + ob[8]] = pass",
+									"}",
+									"else",
+									"    tests[\"Avg_Price = \" + ob[8]] = fail;",
+									"",
+									"",
+									"",
+									"",
+									"",
+									"",
+									"    ",
+									"    ",
+									"    "
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://mercadobitcoin.net/api/btc/day-summary/{{yesterday}}",
+							"protocol": "https",
+							"host": [
+								"mercadobitcoin",
+								"net"
+							],
+							"path": [
+								"api",
+								"btc",
+								"day-summary",
+								"{{yesterday}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "orderbook",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "aa4051d9-4177-4185-9980-470dbcc34e70",
+								"exec": [
+									"pass = true;",
+									"fail = false;",
+									"",
+									"var data = JSON.parse(responseBody);",
+									"var obD = Object.keys(data);",
+									"//console.log(data.asks.length)",
+									"",
+									"if (obD.length === 2) {",
+									"    tests[\"Number of data object keys = \" + obD.length] = pass",
+									"}",
+									"else",
+									"    tests[\"Number of data object keys = \" + obD.length] = fail;",
+									"",
+									"if (obD[0] === \"asks\") {",
+									"    tests[\"Asks = \" + obD[0]] = pass",
+									"}",
+									"else",
+									"    tests[\"Asks = \" + obD[0]] = fail;",
+									"",
+									"if (obD[1] === \"bids\") {",
+									"    tests[\"Bids = \" + obD[1]] = pass",
+									"}",
+									"else",
+									"    tests[\"Bids = \" + obD[1]] = fail;",
+									"",
+									"if (data.asks.length === 1000) {",
+									"    tests[\"Number of Asks Returned = \" + data.asks.length] = pass",
+									"}",
+									"else",
+									"    tests[\"Number of Asks Returned = \" + data.asks.length] = fail;",
+									"",
+									"if (data.bids.length === 1000) {",
+									"    tests[\"Number of Bids Returned = \" + data.bids.length] = pass",
+									"}",
+									"else",
+									"    tests[\"Number of Bids Returned = \" + data.bids.length] = fail;",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://mercadobitcoin.net/api/btc/orderbook/",
+							"protocol": "https",
+							"host": [
+								"mercadobitcoin",
+								"net"
+							],
+							"path": [
+								"api",
+								"btc",
+								"orderbook",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
