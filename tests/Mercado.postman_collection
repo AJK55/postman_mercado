@@ -708,7 +708,7 @@
 									"else",
 									"    tests[\"Number of Asks Returned = \" + data.asks.length] = fail;",
 									"",
-									"if (data.bids.length >= 500) {",
+									"if (data.bids.length >= 100) {",
 									"    tests[\"Number of Bids Returned >= \" + data.bids.length] = pass",
 									"}",
 									"else",
